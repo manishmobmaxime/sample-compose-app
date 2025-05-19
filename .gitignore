@@ -1,0 +1,67 @@
+# Kotlin
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+*.hprof
+
+# IntelliJ / Android Studio
+.idea/
+*.iws
+*.ipr
+.gradle/
+local.properties
+.DS_Store
+captures/
+.externalNativeBuild
+.cxx
+*.log
+
+# Gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+**/build/
+**/out/
+
+# KMP specific
+bin/
+out/
+generated/
+.idea/modules.xml
+
+# macOS
+*.DS_Store
+
+# Linux
+*~
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+
+# Android
+*.apk
+*.ap_
+*.dex
+*.so
+*.keystore
+
+# Ktor client cache (if used)
+ktor-client-cache/
+
+# Compose Multiplatform
+*.lock
+composeApp/build/
+shared/build/
+
+# Packaging
+*.zip
+*.tar.gz
+*.tgz
+
+# Optional: ignore test result files
+test-results/
+test-output/
