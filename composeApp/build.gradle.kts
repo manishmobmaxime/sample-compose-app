@@ -34,6 +34,9 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(compose.materialIconsExtended)
+
+            // Koin
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -50,6 +53,10 @@ kotlin {
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.koin)
             implementation(libs.voyager.transitions)
+
+            // Koin
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

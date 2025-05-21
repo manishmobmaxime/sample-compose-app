@@ -2,9 +2,9 @@ package com.compose.kotlin.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.screen.Screen
-import com.compose.kotlin.HomeScreen
-import com.compose.kotlin.presentation.ui.login.LoginScreen
-import com.compose.kotlin.presentation.ui.splash.SplashScreen
+import com.compose.app.presentation.ui.home.HomeScreen
+import com.compose.app.presentation.ui.login.LoginScreen
+import com.compose.app.presentation.ui.splash.SplashScreen
 
 sealed interface AppScreen : Screen {
     data object Splash : AppScreen {

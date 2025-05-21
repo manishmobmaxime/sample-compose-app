@@ -5,6 +5,7 @@
 *.ear
 *.iml
 *.hprof
+*.kotlin/
 
 # IntelliJ / Android Studio
 .idea/

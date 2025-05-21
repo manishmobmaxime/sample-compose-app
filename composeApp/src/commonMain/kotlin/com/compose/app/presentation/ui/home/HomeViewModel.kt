@@ -1,18 +1,19 @@
-package com.compose.kotlin.presentation.ui.home
+package com.compose.app.presentation.ui.home
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
-import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.core.model.ScreenModel
 import com.compose.kotlin.data.repository.AuthRepository
-import com.compose.kotlin.presentation.navigation.AppScreen
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
 
-class HomeViewModel(private  val  authRepository: AuthRepository, private  val navigator: Navigator) : ViewModel() {
+class HomeViewModel(private  val  authRepository: AuthRepository) :  ScreenModel {
+    private val _isLogout = MutableStateFlow(false)
+    val isLogout: StateFlow<Boolean> = _isLogout
     fun logout() {
         authRepository.logout()
-        navigator.replaceAll(AppScreen.Login)
+        _isLogout.value = true
+    }
+
+    fun onLogoutSuccess() {
+        _isLogout.value = false
     }
 }

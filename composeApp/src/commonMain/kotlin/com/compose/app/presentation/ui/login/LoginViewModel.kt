@@ -1,20 +1,18 @@
-package com.compose.kotlin.presentation.ui.login
+package com.compose.app.presentation.ui.login
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.screenModelScope
 import com.compose.kotlin.data.repository.AuthRepository
-import com.compose.kotlin.presentation.navigation.AppScreen
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val authRepository: AuthRepository,
-    private val navigator: Navigator
-) : ViewModel() {
-    private val _state = mutableStateOf(LoginState())
-    val state: State<LoginState> = _state
+    private val authRepository: AuthRepository
+) : ScreenModel {
+    private val _state = MutableStateFlow(LoginState())
+    val state: StateFlow<LoginState> = _state.asStateFlow()
 
     fun onUsernameChange(username: String) {
         _state.value = _state.value.copy(username = username)
@@ -24,23 +22,34 @@ class LoginViewModel(
         _state.value = _state.value.copy(password = password)
     }
 
-    fun login() = viewModelScope.launch {
+    fun login() = screenModelScope.launch {
         _state.value = _state.value.copy(isLoading = true, error =  null)
         try {
             val success = authRepository.login(
                 _state.value.username,
                 _state.value.password
             )
-            if(success) navigator.push(AppScreen.Home)
-            else _state.value = _state.value.copy(
-                isLoading =  false,
-                error = "Invalid credentials"
-            )
+
+            if(success) {
+                _state.value = _state.value.copy(
+                    isLoading =  false,
+                    success = true
+                )
+            } else {
+                _state.value = _state.value.copy(
+                    isLoading =  false,
+                    error = "Invalid credentials"
+                )
+            }
         } catch (e: Exception) {
             _state.value = _state.value.copy(
                 isLoading = false,
                 error = "Login Failed: ${e.message}"
             )
         }
+    }
+
+    fun loginSuccess() {
+        _state.value = state.value.copy(success = false)
     }
 }

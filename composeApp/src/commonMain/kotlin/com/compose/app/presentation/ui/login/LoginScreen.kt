@@ -1,4 +1,4 @@
-package com.compose.kotlin.presentation.ui.login
+package com.compose.app.presentation.ui.login
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
@@ -37,7 +37,8 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -54,20 +55,34 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.koin.koinNavigatorScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.compose.kotlin.data.repository.AuthRepositoryImpl
+import com.compose.kotlin.presentation.navigation.AppScreen
 
 class LoginScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val viewModel = remember {
-            LoginViewModel(AuthRepositoryImpl(), navigator)
-        }
-        val state by viewModel.state
+
         val focusManager = LocalFocusManager.current
         val keyboardController = LocalSoftwareKeyboardController.current
+
+        val viewModel = navigator.koinNavigatorScreenModel<LoginViewModel>()
+        val state = viewModel.state.collectAsState().value
+
+        state.let {
+
+        }
+
+        LaunchedEffect(state) {
+            state.let {
+                if (it.success) {
+                    navigator.push(AppScreen.Home)
+                    viewModel.loginSuccess()
+                }
+            }
+        }
 
         Box(
             modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)

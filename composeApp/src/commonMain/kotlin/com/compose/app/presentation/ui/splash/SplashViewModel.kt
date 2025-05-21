@@ -1,25 +1,23 @@
-package com.compose.kotlin.presentation.ui.splash
+package com.compose.app.presentation.ui.splash
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.screenModelScope
 import com.compose.kotlin.data.repository.AuthRepository
-import com.compose.kotlin.presentation.navigation.AppScreen
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class SplashViewModel(private val authRepository: AuthRepository, private  val navigator: Navigator) : ViewModel() {
-
+class SplashViewModel(private val authRepository: AuthRepository) : ScreenModel {
+    private val _isLoggedIn = MutableStateFlow<Boolean?>(null)
+    val isLoggedIn: StateFlow<Boolean?> = _isLoggedIn
     init {
         checkAuthStatus()
     }
 
-    private fun checkAuthStatus() = viewModelScope.launch {
-        delay(2000)
-        if(authRepository.isLoggedIn()) {
-            navigator.replaceAll(AppScreen.Home)
-        } else {
-            navigator.replaceAll(AppScreen.Login)
-        }
+    private fun checkAuthStatus() = screenModelScope.launch {
+        delay(1000)
+        val loggedIn = authRepository.isLoggedIn()
+        _isLoggedIn.value = loggedIn
     }
 }

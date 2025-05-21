@@ -1,25 +1,37 @@
-package com.compose.kotlin
+package com.compose.app.presentation.ui.home
 
 
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.*
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.koin.koinNavigatorScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.compose.kotlin.data.repository.AuthRepositoryImpl
-import com.compose.kotlin.presentation.ui.home.HomeViewModel
-import com.compose.kotlin.presentation.ui.login.LoginViewModel
+import com.compose.kotlin.presentation.navigation.AppScreen
 
 class HomeScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val viewModel = remember {
-            HomeViewModel(AuthRepositoryImpl(), navigator)
+        val viewModel = navigator.koinNavigatorScreenModel<HomeViewModel>()
+        val isLogout by viewModel.isLogout.collectAsState()
+
+        LaunchedEffect(isLogout) {
+            isLogout.let {
+                if (it) {
+                    navigator.replaceAll(AppScreen.Login)
+                    viewModel.onLogoutSuccess()
+                }
+            }
         }
         Column(
             Modifier.fillMaxSize(),
@@ -33,38 +45,3 @@ class HomeScreen : Screen {
         }
     }
 }
-
-
-//@Composable
-//fun HomeScreen(navController: NavHostController) {
-//
-//    Scaffold(
-//        topBar = {
-//            TopAppBar(
-//                modifier = Modifier.padding(WindowInsets.safeDrawing.asPaddingValues()),
-//                title = { Text("Home Screen") },
-//                backgroundColor = MaterialTheme.colors.primary,
-//                elevation = 4.dp,
-//                contentColor = Color.White,
-//            )
-//        },
-//        content = {
-//            Column(
-//                modifier = Modifier
-//                    .padding(WindowInsets.safeDrawing.asPaddingValues())
-//                    .padding(16.dp)
-//                    .fillMaxSize()
-//            ) {
-//                Spacer(modifier = Modifier.height(24.dp))
-//
-//                Spacer(modifier = Modifier.height(24.dp))
-//
-//                Button(onClick = {
-//                    navController.navigate(Routes.PROFILE);
-//                }, modifier = Modifier.fillMaxWidth()) {
-//                    Text("Go to Profile")
-//                }
-//            }
-//        }
-//    )
-//}

@@ -1,4 +1,4 @@
-package com.compose.kotlin.presentation.ui.home
+package com.compose.app.presentation.ui.home
 
 data class HomeState(
     val clickCount: Int = 0,          // Track button clicks
