@@ -2,7 +2,7 @@ package com.compose.app.presentation.ui.splash
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import com.compose.kotlin.data.repository.AuthRepository
+import com.compose.app.data.repository.AuthRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

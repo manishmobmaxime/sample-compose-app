@@ -1,12 +1,14 @@
 package com.compose.app
 
-import com.compose.kotlin.di.appModule
+import com.compose.app.di.appModule
+import networkModule
 import org.koin.core.context.startKoin
 
 fun initKoin() {
     startKoin {
         modules(
-            appModule
+            appModule,
+            networkModule
         )
     }
 }

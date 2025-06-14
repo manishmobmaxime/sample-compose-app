@@ -2,7 +2,7 @@ package com.compose.app.presentation.ui.login
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import com.compose.kotlin.data.repository.AuthRepository
+import com.compose.app.data.repository.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,30 +22,32 @@ class LoginViewModel(
         _state.value = _state.value.copy(password = password)
     }
 
-    fun login() = screenModelScope.launch {
-        _state.value = _state.value.copy(isLoading = true, error =  null)
-        try {
-            val success = authRepository.login(
-                _state.value.username,
-                _state.value.password
-            )
-
-            if(success) {
-                _state.value = _state.value.copy(
-                    isLoading =  false,
-                    success = true
+    fun login() {
+        screenModelScope.launch {
+            _state.value = _state.value.copy(isLoading = true, error =  null)
+            try {
+                val success = authRepository.login(
+                    _state.value.username,
+                    _state.value.password
                 )
-            } else {
+
+                if(success) {
+                    _state.value = _state.value.copy(
+                        isLoading =  false,
+                        success = true
+                    )
+                } else {
+                    _state.value = _state.value.copy(
+                        isLoading =  false,
+                        error = "Invalid credentials"
+                    )
+                }
+            } catch (e: Exception) {
                 _state.value = _state.value.copy(
-                    isLoading =  false,
-                    error = "Invalid credentials"
+                    isLoading = false,
+                    error = "Login Failed: ${e.message}"
                 )
             }
-        } catch (e: Exception) {
-            _state.value = _state.value.copy(
-                isLoading = false,
-                error = "Login Failed: ${e.message}"
-            )
         }
     }
 

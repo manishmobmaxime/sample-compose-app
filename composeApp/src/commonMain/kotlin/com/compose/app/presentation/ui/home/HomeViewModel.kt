@@ -1,7 +1,7 @@
 package com.compose.app.presentation.ui.home
 
 import cafe.adriel.voyager.core.model.ScreenModel
-import com.compose.kotlin.data.repository.AuthRepository
+import com.compose.app.data.repository.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
