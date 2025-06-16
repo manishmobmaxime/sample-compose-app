@@ -13,7 +13,8 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinNavigatorScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.compose.kotlin.presentation.navigation.AppScreen
+import com.compose.app.presentation.ui.MainPage
+import com.compose.app.presentation.ui.home.HomeScreen
 
 class SplashScreen : Screen {
 
@@ -26,9 +27,9 @@ class SplashScreen : Screen {
         LaunchedEffect(isLoggedIn) {
             isLoggedIn?.let {
                 if (it) {
-                    navigator.replaceAll(AppScreen.Home)
+                    navigator.replaceAll(HomeScreen())
                 } else {
-                    navigator.replaceAll(AppScreen.Login)
+                    navigator.replaceAll(MainPage())
                 }
             }
         }

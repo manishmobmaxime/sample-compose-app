@@ -53,6 +53,9 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(compose.materialIconsExtended)
 
+            //Compose
+            implementation(libs.compose.material)
+
             // Voyager
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.koin)
@@ -61,6 +64,7 @@ kotlin {
             // Koin
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
+            implementation(libs.koin.viewmodel)
 
             // Ktor
             implementation(libs.ktor.client.core)
