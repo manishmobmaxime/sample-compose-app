@@ -41,6 +41,9 @@ kotlin {
 
             // Ktor
             implementation(libs.ktor.client.okhttp)
+
+            // DataStore
+            implementation(libs.datastore.preferences)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -55,6 +58,10 @@ kotlin {
 
             //Compose
             implementation(libs.compose.material)
+
+            // Kotlinx
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.coroutines.core)
 
             // Voyager
             implementation(libs.voyager.navigator)
@@ -72,7 +79,11 @@ kotlin {
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
-            implementation(libs.kotlinx.serialization.json)
+
+            // DataStore
+            implementation(libs.datastore.preferences.core)
+            implementation(libs.koin.core)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

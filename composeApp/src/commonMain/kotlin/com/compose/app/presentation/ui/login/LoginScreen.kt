@@ -58,9 +58,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinNavigatorScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.compose.app.presentation.navigation.AppScreen
 import com.compose.app.presentation.ui.MainPage
-import com.compose.app.presentation.ui.home.HomeScreen
 
 class LoginScreen : Screen {
     @Composable
@@ -80,7 +78,6 @@ class LoginScreen : Screen {
         LaunchedEffect(state) {
             state.let {
                 if (it.success) {
-//                    navigator.replace(HomeScreen())
                     navigator.replace(MainPage())
                     viewModel.loginSuccess()
                 }
