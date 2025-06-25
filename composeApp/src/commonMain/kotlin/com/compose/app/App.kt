@@ -5,13 +5,14 @@ import androidx.compose.runtime.*
 import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.Navigator
 import com.compose.app.presentation.navigation.AppScreen
+import com.compose.app.presentation.theme.AppTheme
 import com.compose.app.presentation.ui.splash.SplashScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
+    AppTheme {
         Navigator(screen = SplashScreen()) {
             CurrentScreen()
         }
