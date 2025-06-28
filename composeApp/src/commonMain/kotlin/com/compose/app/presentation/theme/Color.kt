@@ -5,7 +5,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
 // Light Theme Colors
-val LightPrimary = Color(0xFF6200EE) // A nice purple
+val LightPrimary = Color(0xFF005693) // A nice purple
 val LightOnPrimary = Color(0xFFFFFFFF)
 val LightSecondary = Color(0xFF03DAC5) // A teal accent
 val LightOnSecondary = Color(0xFF000000)

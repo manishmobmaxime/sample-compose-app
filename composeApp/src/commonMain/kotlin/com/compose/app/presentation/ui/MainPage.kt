@@ -19,7 +19,10 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
+import com.compose.app.helpers.Assets
 import com.compose.app.presentation.ui.account.AccountPage
+import com.compose.app.presentation.ui.cart.CartScreen
+import com.compose.app.presentation.ui.category.CategoryScreen
 import com.compose.app.presentation.ui.home.HomeScreen
 import org.jetbrains.compose.resources.painterResource
 import samplecomposeapp.composeapp.generated.resources.Res
@@ -33,7 +36,7 @@ class MainPage : Screen {
     override fun Content() {
         val viewModel = koinScreenModel<MainViewModel>()
         val selectedTabIndex by viewModel.selectedTabIndex.collectAsState()
-        val tabs = listOf(HomeScreen(), AccountPage(), HomeScreen(), AccountPage())
+        val tabs = listOf(HomeScreen(), CategoryScreen(), CartScreen(), AccountPage())
         Scaffold(
             containerColor = MaterialTheme.colorScheme.background, // Scaffold background
             contentColor = MaterialTheme.colorScheme.onBackground,
@@ -48,11 +51,11 @@ class MainPage : Screen {
                     tabs.forEachIndexed { index, label ->
                         val isSelected = selectedTabIndex == index
                         val iconRes = when (index) {
-                            0 -> Res.drawable.ic_home
-                            1 -> Res.drawable.ic_category
-                            2 -> Res.drawable.ic_cart
-                            3 -> Res.drawable.ic_user
-                            else -> Res.drawable.ic_user
+                            0 -> Assets.icHome
+                            1 -> Assets.icCategory
+                            2 -> Assets.icCart
+                            3 -> Assets.icUser
+                            else -> Assets.icUser
                         }
 
                         NavigationBarItem(
@@ -71,7 +74,7 @@ class MainPage : Screen {
                                 )
                             },
                             label = {
-                                val tabLabel = if (index == 0) "Home" else if(index == 0) "Category" else if(index == 0) "Cart" else "Account"
+                                val tabLabel = if (index == 0) "Home" else if(index == 1) "Category" else if(index == 2) "Cart" else "Account"
                                 Text(
                                     tabLabel,
                                     color = if (isSelected) MaterialTheme.colorScheme.primary

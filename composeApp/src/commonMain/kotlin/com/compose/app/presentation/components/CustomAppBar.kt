@@ -9,9 +9,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -22,14 +26,15 @@ fun CustomAppBar(
     canNavigateBack: Boolean = false,
     onNavigateBack: () -> Unit = {},
     modifier: Modifier = Modifier, // Provide a default Modifier for previews
-    backgroundColor: Color = MaterialTheme.colorScheme.primary,
-    contentColor: Color  = MaterialTheme.colorScheme.onPrimary,
+    backgroundColor: Color = MaterialTheme.colorScheme.surface,
+    contentColor: Color  = MaterialTheme.colorScheme.onSurface,
 ) { // Changed return type from ": @Composable () -> Unit" to just "Unit" (implied)
     TopAppBar(
         title = {
             Text(
                 text = title,
-                style = MaterialTheme.typography.titleLarge // Use appropriate typography from your theme
+                style = MaterialTheme.typography.titleLarge ,// Use appropriate typography from your theme
+                color = MaterialTheme.colorScheme.onSurface
             )
         },
         navigationIcon = {
@@ -48,6 +53,6 @@ fun CustomAppBar(
             titleContentColor = contentColor,
             navigationIconContentColor = contentColor
         ),
-        modifier = modifier
+        modifier = modifier.shadow(1.dp),
     )
 }
