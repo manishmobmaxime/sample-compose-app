@@ -7,25 +7,12 @@ import com.compose.app.data.model.home.ProductModel
 import com.compose.app.data.remote.HomeService
 
 interface HomeRepository {
-    suspend fun getCategories(request: ParamRequest): ApiResponse<ProductCategoryResponse>?
     suspend fun getProducts(): List<ProductModel>?
 }
 
 class HomeRepositoryImpl(private val homeService: HomeService) : HomeRepository {
-
-    private var categoryResponse: ApiResponse<ProductCategoryResponse>? = null
     private var productResponse: List<ProductModel>? = null
 
-    override suspend fun getCategories(request: ParamRequest): ApiResponse<ProductCategoryResponse>? {
-        return try {
-            val response = homeService.getCategories(request)
-            categoryResponse = response
-            categoryResponse
-        } catch (e: Exception) {
-            // Log or handle error
-            categoryResponse
-        }
-    }
 
     override suspend fun getProducts(): List<ProductModel>? {
         return try {

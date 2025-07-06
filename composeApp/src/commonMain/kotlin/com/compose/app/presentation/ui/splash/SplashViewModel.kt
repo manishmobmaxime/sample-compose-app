@@ -5,6 +5,7 @@ import cafe.adriel.voyager.core.model.screenModelScope
 import com.compose.app.data.SettingsRepository
 import com.compose.app.data.repository.AuthRepository
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
@@ -21,7 +22,7 @@ class SplashViewModel(private val settings: SettingsRepository) : ScreenModel {
     private fun checkAuthStatus() = screenModelScope.launch {
         delay(1000)
 //        val loggedIn = authRepository.isLoggedIn()
-        val loggedIn: kotlinx.coroutines.flow.Flow<Boolean> = (settings.authToken).map { token -> !token.isNullOrBlank() }
+        val loggedIn: Flow<Boolean> = (settings.authToken).map { token -> !token.isNullOrBlank() }
         _isLoggedIn.value = loggedIn.first()
     }
 }

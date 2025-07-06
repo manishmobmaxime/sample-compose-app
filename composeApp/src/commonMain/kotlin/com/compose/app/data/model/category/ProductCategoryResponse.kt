@@ -2,6 +2,7 @@ package com.compose.app.data.model.category
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 
 @kotlinx.serialization.Serializable
 data class ProductCategoryResponse(
@@ -33,7 +34,7 @@ data class ProductCategoryModel(
     val productSubCategory: List<ProductSubCategoryModel>? = null,
 
     @SerialName("category_banner")
-    val categoryBanner: List<String>? = null, // or List<JsonElement> if unknown structure
+    val categoryBanner: JsonElement? = null,
 
     @SerialName("mobile_image")
     val mobileImage: String? = null,

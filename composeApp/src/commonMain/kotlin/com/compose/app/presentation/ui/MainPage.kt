@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
@@ -34,19 +35,16 @@ import samplecomposeapp.composeapp.generated.resources.ic_user
 class MainPage : Screen {
     @Composable
     override fun Content() {
-        val viewModel = koinScreenModel<MainViewModel>()
+        val viewModel = MainViewModel()
         val selectedTabIndex by viewModel.selectedTabIndex.collectAsState()
         val tabs = listOf(HomeScreen(), CategoryScreen(), CartScreen(), AccountPage())
         Scaffold(
-            containerColor = MaterialTheme.colorScheme.background, // Scaffold background
-            contentColor = MaterialTheme.colorScheme.onBackground,
             bottomBar = {
                 // Material 3 NavigationBar
                 NavigationBar(
-                    modifier = Modifier.navigationBarsPadding(), // Apply padding directly to the bar
+                    modifier = Modifier.navigationBarsPadding().shadow(elevation = 4.dp),// Apply padding directly to the bar
                     containerColor = MaterialTheme.colorScheme.surface, // Use surface for bar background
                     contentColor = MaterialTheme.colorScheme.onSurface, // Use onSurface for default item content
-                    tonalElevation = 1.dp, // <--- Set tonal elevation to 0.dp to remove color tint
                 ) {
                     tabs.forEachIndexed { index, label ->
                         val isSelected = selectedTabIndex == index
@@ -81,14 +79,6 @@ class MainPage : Screen {
                                     else MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             },
-                            // Optional: Customize colors for the NavigationBarItem
-//                            colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
-//                                selectedIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
-//                                selectedTextColor = MaterialTheme.colorScheme.onSurface,
-//                                indicatorColor = MaterialTheme.colorScheme.primaryContainer, // Background color when selected
-//                                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-//                                unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
-//                            )
                         )
                     }
                 }

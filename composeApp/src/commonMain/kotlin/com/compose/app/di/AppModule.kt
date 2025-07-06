@@ -5,6 +5,8 @@ import com.compose.app.data.SettingsRepositoryImpl
 import com.compose.app.data.createDataStore
 import com.compose.app.data.repository.AuthRepository
 import com.compose.app.data.repository.AuthRepositoryImpl
+import com.compose.app.data.repository.CategoryRepository
+import com.compose.app.data.repository.CategoryRepositoryImpl
 import com.compose.app.data.repository.HomeRepository
 import com.compose.app.data.repository.HomeRepositoryImpl
 import com.compose.app.presentation.ui.MainViewModel
@@ -19,6 +21,7 @@ import org.koin.dsl.module
 val appModule = module {
     single<AuthRepository> { AuthRepositoryImpl(get()) }
     single<HomeRepository> { HomeRepositoryImpl(get()) }
+    single<CategoryRepository> { CategoryRepositoryImpl(get()) }
     // DataStore
     single { createDataStore() }
     single<SettingsRepository> { SettingsRepositoryImpl(get()) }
@@ -28,7 +31,7 @@ val appModule = module {
     factory { LoginViewModel(get(), get()) }
     factory { MainViewModel() }
     factory { HomeViewModel(get()) }
-    factory { CategoryViewModel() }
+    factory { CategoryViewModel(get()) }
     factory { CartViewModel() }
-    factory { AccountViewModel(get()) }
+    factory { AccountViewModel(get(), get()) }
 }

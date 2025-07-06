@@ -1,6 +1,9 @@
 package com.compose.app.presentation.ui.home
 
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,11 +20,16 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.*
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinNavigatorScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import coil3.compose.AsyncImage
 import com.compose.app.data.model.home.ProductModel
 import com.compose.app.presentation.components.CustomAppBar
 import com.compose.app.presentation.ui.login.LoginScreen
@@ -51,13 +59,14 @@ class HomeScreen : Screen {
             },
             content = { paddingValues ->
                 Column(
-                    modifier = Modifier.padding(paddingValues)
+                    modifier = Modifier.fillMaxSize().padding(top = paddingValues.calculateTopPadding())
                 ) {
                     Text(
-                        text = "Welcome to my app!",
-                        modifier = Modifier.padding(16.dp)
+                        text = "Products",
+                        style = MaterialTheme.typography.headlineMedium,
+                        modifier = Modifier.padding(10.dp)
                     )
-                    Box(modifier = Modifier.padding(horizontal = 15.dp)) {
+                    Box(modifier = Modifier.fillMaxWidth().weight(1f).padding(horizontal = 15.dp)) {
                         when (productsState) {
                             is ProductListState.Loading -> {
                                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -68,11 +77,9 @@ class HomeScreen : Screen {
                                 val products = (productsState as ProductListState.Success).products
                                 if (products != null) {
                                     if(products.isNotEmpty()) {
-                                        LazyColumn {
+                                        LazyColumn(modifier = Modifier.fillMaxSize()) {
                                             items(products) { product ->
-                                                Box(modifier = Modifier.padding(vertical = 10.dp)) {
-                                                    ProductListItem(product)
-                                                }
+                                                ProductListItem(product)
                                             }
                                         }
                                     }
@@ -98,18 +105,33 @@ class HomeScreen : Screen {
     }
 
     @Composable
-    fun ProductListItem(product: ProductModel) {
+    fun ProductListItem(product: ProductModel,  modifier: Modifier = Modifier) {
         // Re-use or define your product list item UI here
-        Column(modifier = Modifier.fillMaxWidth()) {
-//            Image(
-//                painter = resource,
-//                contentDescription = "Network Image",
-//                modifier = Modifier.size(100.dp)
-//            )
-            Text(text = product.title, style = MaterialTheme.typography.titleMedium)
-            Text(text = "Price: $${product.price}", style = MaterialTheme.typography.bodyLarge)
-            Text(text = "Rating: ${product.rating.rate} (${product.rating.count} reviews)", style = MaterialTheme.typography.bodySmall)
-            // Add AsyncImage for product.image if you're using Coil/Glide/etc.
+        Box(modifier =  Modifier
+            .padding(top = 10.dp)
+            .clip(RoundedCornerShape(10.dp))
+            .border(
+                border = BorderStroke(1.dp, Color.Gray.copy(alpha = 0.2f)),
+                shape = RoundedCornerShape(10.dp)
+            )
+            .padding(10.dp)
+        ) {
+            Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                AsyncImage(
+                    model = product.image, // Example URL
+                    contentDescription = "product",
+                    modifier = Modifier.fillMaxWidth().height(200.dp),
+                    contentScale = ContentScale.Fit,
+                    // Optional: Placeholder and error drawables (you'd need to provide these in resources)
+                    // placeholder = painterResource(R.drawable.placeholder_image),
+                    // error = painterResource(R.drawable.error_image)
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = product.title, style = MaterialTheme.typography.titleMedium)
+                Text(text = "Price: $${product.price}", style = MaterialTheme.typography.bodyLarge)
+                Text(text = "Rating: ${product.rating.rate} (${product.rating.count} reviews)", style = MaterialTheme.typography.bodySmall)
+                // Add AsyncImage for product.image if you're using Coil/Glide/etc.
+            }
         }
     }
 }
