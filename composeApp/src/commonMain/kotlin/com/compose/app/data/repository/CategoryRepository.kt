@@ -2,7 +2,7 @@ package com.compose.app.data.repository
 import com.compose.app.data.model.category.ProductCategoryModel
 import com.compose.app.data.model.common.ApiResponse
 import com.compose.app.data.model.common.ParamRequest
-import com.compose.app.data.remote.HomeService
+import com.compose.app.data.remote.services.HomeService
 
 interface CategoryRepository {
     suspend fun getCategories(request: ParamRequest): ApiResponse<List<ProductCategoryModel>>?

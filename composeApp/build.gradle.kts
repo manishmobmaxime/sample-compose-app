@@ -44,6 +44,8 @@ kotlin {
 
             // DataStore
             implementation(libs.datastore.preferences)
+
+            implementation(libs.compose.foundation)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -83,6 +85,13 @@ kotlin {
             // DataStore
             implementation(libs.datastore.preferences.core)
             implementation(libs.koin.core)
+
+            // Coil for Compose Multiplatform
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor3)
+
+            // Foundation
+            implementation(libs.compose.foundation)
 
         }
         commonTest.dependencies {

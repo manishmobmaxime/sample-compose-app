@@ -5,7 +5,9 @@ object ApiRoutes {
     const val BASE_URL = "http://stagging.emilkpro.in:7105/"
     const val LOGIN_URL = "services/User/Users/login"
     const val CATEGORY_LIST_URL = "portal/Products/ProductCategory/categorylist"
+    const val COUNTRY_LIST_URL = "portal/Geo/Country/list"
+    const val BANNER_LIST_URL = "portal/Products/Banner/list";
+    const val BRAND_LIST_URL = "portal/Products/ProductCategory/productbrandlist"
+    const val PRODUCT_LIST_URL = "portal/Products/Product/SearchProducts"
 
-//    const val BASE_URL = "https://fakestoreapi.com"
-    const val PRODUCT_LIST_URL = "products"
 }

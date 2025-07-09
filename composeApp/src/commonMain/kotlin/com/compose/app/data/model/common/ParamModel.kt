@@ -13,7 +13,7 @@ data class ParamModel(
     val operator: JsonElement? = null,
 
     @SerialName("propertyvalue")
-    val propertyValue: JsonElement? = null,
+    val propertyValue: String? = null,
 
     @SerialName("PropertyName")
     val propertyNameCap: String? = null,

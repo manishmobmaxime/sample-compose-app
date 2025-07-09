@@ -3,7 +3,7 @@ package com.compose.app.data.repository
 import com.compose.app.data.model.common.ApiResponse
 import com.compose.app.data.model.login.LoginRequest
 import com.compose.app.data.model.login.LoginResponse
-import com.compose.app.data.remote.AuthService
+import com.compose.app.data.remote.services.AuthService
 
 interface AuthRepository {
     suspend fun login(username: String, password: String): ApiResponse<LoginResponse>?
