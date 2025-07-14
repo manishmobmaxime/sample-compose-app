@@ -36,7 +36,6 @@ class HomeScreen : Screen {
         val homeState by viewModel.homeState.collectAsState()
 
         var searchQuery by remember { mutableStateOf("") }
-        var showCountrySheet by remember { mutableStateOf(false) }
 
         val scrollState = rememberScrollState()
 
@@ -52,10 +51,11 @@ class HomeScreen : Screen {
             topBar = {
                 TopSearchBar(
                     searchQuery = searchQuery,
+                    selectedCountry = homeState.selectedCountry,
                     onSearchQueryChanged = { searchQuery = it },
                     onClearClick = { searchQuery = "" },
                     onMicClick = {  },
-                    onCountryClick = { showCountrySheet = true }
+                    onCountryClick = { viewModel.onToggleCountry(true)}
                 )
             },
             content = { paddingValues ->
@@ -105,16 +105,15 @@ class HomeScreen : Screen {
                         }
                     }
                 }
-                if (showCountrySheet) {
+                if (homeState.showCountrySheet) {
                     homeState.countryList?.let { countryList ->
                         CountryPickerBottomSheet(
                             countries = countryList,
                             onSelect = {
-                                homeState.selectedCountry = it
-                                showCountrySheet = false
+                                viewModel.onSelectCountry(it)
                             },
                             onDismiss = {
-                                showCountrySheet = false
+                                viewModel.onToggleCountry(false)
                             }
                         )
                     }

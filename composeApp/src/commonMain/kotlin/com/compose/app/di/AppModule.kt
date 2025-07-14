@@ -1,8 +1,5 @@
 package com.compose.app.di
 
-import com.compose.app.data.SettingsRepository
-import com.compose.app.data.SettingsRepositoryImpl
-import com.compose.app.data.createDataStore
 import com.compose.app.data.repository.AuthRepository
 import com.compose.app.data.repository.AuthRepositoryImpl
 import com.compose.app.data.repository.CategoryRepository
@@ -22,15 +19,11 @@ val appModule = module {
     single<AuthRepository> { AuthRepositoryImpl(get()) }
     single<HomeRepository> { HomeRepositoryImpl(get()) }
     single<CategoryRepository> { CategoryRepositoryImpl(get()) }
-    // DataStore
-    single { createDataStore() }
-    single<SettingsRepository> { SettingsRepositoryImpl(get()) }
-
 
     factory { SplashViewModel(get()) }
     factory { LoginViewModel(get(), get()) }
     factory { MainViewModel() }
-    factory { HomeViewModel(get()) }
+    factory { HomeViewModel(get(), get()) }
     factory { CategoryViewModel(get()) }
     factory { CartViewModel() }
     factory { AccountViewModel(get(), get()) }

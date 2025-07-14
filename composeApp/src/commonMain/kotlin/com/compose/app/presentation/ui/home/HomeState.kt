@@ -10,6 +10,7 @@ data class HomeState(
     val isLoading: Boolean = true,
     val error: String? = null,
     val success: Boolean = false,
+    val showCountrySheet: Boolean = false,
     val categoryList: List<ProductCategoryModel>? = null,
     val selectedCategory: ProductCategoryModel? = null,
     val countryList: List<CountryModel>? = null,

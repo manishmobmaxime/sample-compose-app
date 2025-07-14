@@ -2,6 +2,7 @@ package com.compose.app.data.model.common
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 @Serializable
 data class CountryResponse(
@@ -30,5 +31,8 @@ data class CountryModel(
     val threeLeterCountryCode: String? = null,
 
     @SerialName("is_buyer")
-    val isBuyer: Boolean? = null
+    val isBuyer: Boolean? = null,
+
+    @Transient
+    val isSelected: Boolean = false
 )
